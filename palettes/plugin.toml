@@ -9,8 +9,12 @@ tags = ["development", "panel", "theming", "utility"]
 icon = "palette"
 description = "Create, manage and copy colors from local palettes or builtin picks from the community."
 
+[[widget]]
+id = "bar"
+entry = "bar.luau"
+
 [[panel]]
-id = "palettes"
+id = "panel"
 entry = "panel.luau"
 width = 800
 height = 700

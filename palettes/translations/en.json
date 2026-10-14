@@ -1,8 +1,14 @@
 {
+  "panel": {
+    "title": "Palettes"
+  },
   "settings": {
     "columns":{
       "description": "How many color columns the palette grid shows.",
       "label": "Columns"
     }
+  },
+  "widget": {
+    "tooltip": "Open Palettes"
   }
 }
