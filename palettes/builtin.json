@@ -1,4 +1,5 @@
 [
+
   { "name": "Catppuccin Latte", "colors": [
     { "name": "Rosewater", "hex": "#dc8a78" }, { "name": "Flamingo", "hex": "#dd7878" },
     { "name": "Pink", "hex": "#ea76cb" }, { "name": "Mauve", "hex": "#8839ef" },
@@ -58,5 +59,106 @@
     { "name": "Surface 2", "hex": "#585b70" }, { "name": "Surface 1", "hex": "#45475a" },
     { "name": "Surface 0", "hex": "#313244" }, { "name": "Base", "hex": "#1e1e2e" },
     { "name": "Mantle", "hex": "#181825" }, { "name": "Crust", "hex": "#11111b" }
+  ] },
+      { "name": "Dracula", "colors": [
+    { "name": "Background", "hex": "#282a36" }, { "name": "Current Line", "hex": "#44475a" },
+    { "name": "Foreground", "hex": "#f8f8f2" }, { "name": "Comment", "hex": "#6272a4" },
+    { "name": "Cyan", "hex": "#8be9fd" }, { "name": "Green", "hex": "#50fa7b" },
+    { "name": "Orange", "hex": "#ffb86c" }, { "name": "Pink", "hex": "#ff79c6" },
+    { "name": "Purple", "hex": "#bd93f9" }, { "name": "Red", "hex": "#ff5555" },
+    { "name": "Yellow", "hex": "#f1fa8c" }
+  ] },
+    { "name": "Eldritch", "colors": [
+    { "name": "Sunken Depths Grey", "hex": "#212337" }, { "name": "Shallow Depths Grey", "hex": "#323449" },
+    { "name": "Tidal Surface", "hex": "#454759" }, { "name": "Lighthouse White", "hex": "#ebfafa" },
+    { "name": "The Old One Purple", "hex": "#7081d0" }, { "name": "Great Old One Green", "hex": "#37f499" },
+    { "name": "Pustule Pink", "hex": "#f265b5" }, { "name": "Lovecraft Purple", "hex": "#a48cf2" },
+    { "name": "Phosphor Green", "hex": "#2dcc82" }, { "name": "Dreamrot Pink", "hex": "#d154a1" },
+    { "name": "Sulfur Yellow", "hex": "#ccd663" }, { "name": "Last Light Yellow", "hex": "#fff952" }
+  ] },
+  { "name": "Gruvbox Dark", "colors": [
+    { "name": "Bg0 Hard", "hex": "#1d2021" }, { "name": "Bg0", "hex": "#282828" },
+    { "name": "Bg0 Soft", "hex": "#32302f" }, { "name": "Bg1", "hex": "#3c3836" },
+    { "name": "Bg2", "hex": "#504945" }, { "name": "Bg3", "hex": "#665c54" },
+    { "name": "Bg4", "hex": "#7c6f64" }, { "name": "Fg0", "hex": "#fbf1c7" },
+    { "name": "Fg1", "hex": "#ebdbb2" }, { "name": "Fg2", "hex": "#d5c4a1" },
+    { "name": "Fg3", "hex": "#bdae93" }, { "name": "Fg4", "hex": "#a89984" },
+    { "name": "Gray", "hex": "#928374" }, { "name": "Red", "hex": "#fb4934" },
+    { "name": "Green", "hex": "#b8bb26" }, { "name": "Yellow", "hex": "#fabd2f" },
+    { "name": "Blue", "hex": "#83a598" }, { "name": "Purple", "hex": "#d3869b" },
+    { "name": "Aqua", "hex": "#8ec07c" }, { "name": "Orange", "hex": "#fe8019" }
+  ] },
+  { "name": "Gruvbox Light", "colors": [
+    { "name": "Bg0 Hard", "hex": "#f9f5d7" }, { "name": "Bg0", "hex": "#fbf1c7" },
+    { "name": "Bg0 Soft", "hex": "#f2e5bc" }, { "name": "Bg1", "hex": "#ebdbb2" },
+    { "name": "Bg2", "hex": "#d5c4a1" }, { "name": "Bg3", "hex": "#bdae93" },
+    { "name": "Bg4", "hex": "#a89984" }, { "name": "Fg0", "hex": "#282828" },
+    { "name": "Fg1", "hex": "#3c3836" }, { "name": "Fg2", "hex": "#504945" },
+    { "name": "Fg3", "hex": "#665c54" }, { "name": "Fg4", "hex": "#7c6f64" },
+    { "name": "Gray", "hex": "#928374" }, { "name": "Red", "hex": "#9d0006" },
+    { "name": "Green", "hex": "#79740e" }, { "name": "Yellow", "hex": "#b57614" },
+    { "name": "Blue", "hex": "#076678" }, { "name": "Purple", "hex": "#8f3f71" },
+    { "name": "Aqua", "hex": "#427b58" }, { "name": "Orange", "hex": "#af3a03" }
+  ] },
+  { "name": "Kanagawa Wave", "colors": [
+    { "name": "Fuji White", "hex": "#dcd7ba" }, { "name": "Old White", "hex": "#c8c093" },
+    { "name": "Sumi Ink 0", "hex": "#16161d" }, { "name": "Sumi Ink 1", "hex": "#1f1f28" },
+    { "name": "Sumi Ink 2", "hex": "#2a2a37" }, { "name": "Sumi Ink 3", "hex": "#363646" },
+    { "name": "Sumi Ink 4", "hex": "#54546d" }, { "name": "Wave Blue 1", "hex": "#223249" },
+    { "name": "Wave Blue 2", "hex": "#2d4f67" }, { "name": "Winter Green", "hex": "#2b3328" },
+    { "name": "Winter Yellow", "hex": "#49443c" }, { "name": "Winter Red", "hex": "#43242b" },
+    { "name": "Winter Blue", "hex": "#252535" }, { "name": "Autumn Green", "hex": "#76946a" },
+    { "name": "Autumn Red", "hex": "#c34043" }, { "name": "Autumn Yellow", "hex": "#dca561" },
+    { "name": "Samurai Red", "hex": "#e82424" }, { "name": "Ronin Yellow", "hex": "#ff9e3b" },
+    { "name": "Wave Aqua 1", "hex": "#6a9589" }, { "name": "Dragon Blue", "hex": "#658594" },
+    { "name": "Fuji Gray", "hex": "#727169" }, { "name": "Spring Violet 1", "hex": "#938aa9" },
+    { "name": "Oni Violet", "hex": "#957fb8" }, { "name": "Crystal Blue", "hex": "#7e9cd8" },
+    { "name": "Spring Violet 2", "hex": "#9cabca" }, { "name": "Spring Blue", "hex": "#7fb4ca" },
+    { "name": "Light Blue", "hex": "#a3d4d5" }, { "name": "Wave Aqua 2", "hex": "#7aa89f" },
+    { "name": "Spring Green", "hex": "#98bb6c" }, { "name": "Boat Yellow 1", "hex": "#938056" },
+    { "name": "Boat Yellow 2", "hex": "#c0a36e" }, { "name": "Carp Yellow", "hex": "#e6c384" },
+    { "name": "Sakura Pink", "hex": "#d27e99" }, { "name": "Wave Red", "hex": "#e46876" },
+    { "name": "Peach Red", "hex": "#ff5d62" }, { "name": "Surimi Orange", "hex": "#ffa066" },
+    { "name": "Katana Gray", "hex": "#717c7c" }
+  ] },
+  { "name": "Nord", "colors": [
+    { "name": "Nord 0", "hex": "#2e3440" }, { "name": "Nord 1", "hex": "#3b4252" },
+    { "name": "Nord 2", "hex": "#434c5e" }, { "name": "Nord 3", "hex": "#4c566a" },
+    { "name": "Nord 4", "hex": "#d8dee9" }, { "name": "Nord 5", "hex": "#e5e9f0" },
+    { "name": "Nord 6", "hex": "#eceff4" }, { "name": "Nord 7", "hex": "#8fbcbb" },
+    { "name": "Nord 8", "hex": "#88c0d0" }, { "name": "Nord 9", "hex": "#81a1c1" },
+    { "name": "Nord 10", "hex": "#5e81ac" }, { "name": "Nord 11", "hex": "#bf616a" },
+    { "name": "Nord 12", "hex": "#d08770" }, { "name": "Nord 13", "hex": "#ebcb8b" },
+    { "name": "Nord 14", "hex": "#a3be8c" }, { "name": "Nord 15", "hex": "#b48ead" }
+  ] },
+  { "name": "Rosé Pine", "colors": [
+    { "name": "Base", "hex": "#191724" }, { "name": "Surface", "hex": "#1f1d2e" },
+    { "name": "Overlay", "hex": "#26233a" }, { "name": "Muted", "hex": "#6e6a86" },
+    { "name": "Subtle", "hex": "#908caa" }, { "name": "Text", "hex": "#e0def4" },
+    { "name": "Love", "hex": "#eb6f92" }, { "name": "Gold", "hex": "#f6c177" },
+    { "name": "Rose", "hex": "#ebbcba" }, { "name": "Pine", "hex": "#31748f" },
+    { "name": "Foam", "hex": "#9ccfd8" }, { "name": "Iris", "hex": "#c4a7e7" },
+    { "name": "Highlight Low", "hex": "#21202e" }, { "name": "Highlight Med", "hex": "#403d52" },
+    { "name": "Highlight High", "hex": "#524f67" }
+  ] },
+  { "name": "Rosé Pine Moon", "colors": [
+    { "name": "Base", "hex": "#232136" }, { "name": "Surface", "hex": "#2a273f" },
+    { "name": "Overlay", "hex": "#393552" }, { "name": "Muted", "hex": "#6e6a86" },
+    { "name": "Subtle", "hex": "#908caa" }, { "name": "Text", "hex": "#e0def4" },
+    { "name": "Love", "hex": "#eb6f92" }, { "name": "Gold", "hex": "#f6c177" },
+    { "name": "Rose", "hex": "#ea9a97" }, { "name": "Pine", "hex": "#3e8fb0" },
+    { "name": "Foam", "hex": "#9ccfd8" }, { "name": "Iris", "hex": "#c4a7e7" },
+    { "name": "Highlight Low", "hex": "#2a283e" }, { "name": "Highlight Med", "hex": "#44415a" },
+    { "name": "Highlight High", "hex": "#56526e" }
+  ] },
+  { "name": "Rosé Pine Dawn", "colors": [
+    { "name": "Base", "hex": "#faf4ed" }, { "name": "Surface", "hex": "#fffaf3" },
+    { "name": "Overlay", "hex": "#f2e9e1" }, { "name": "Muted", "hex": "#9893a5" },
+    { "name": "Subtle", "hex": "#797593" }, { "name": "Text", "hex": "#575279" },
+    { "name": "Love", "hex": "#b4637a" }, { "name": "Gold", "hex": "#ea9d34" },
+    { "name": "Rose", "hex": "#d7827e" }, { "name": "Pine", "hex": "#286983" },
+    { "name": "Foam", "hex": "#56949f" }, { "name": "Iris", "hex": "#907aa9" },
+    { "name": "Highlight Low", "hex": "#f4ede8" }, { "name": "Highlight Med", "hex": "#dfdad9" },
+    { "name": "Highlight High", "hex": "#cecacd" }
   ] }
 ]
