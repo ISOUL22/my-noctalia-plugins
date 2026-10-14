@@ -107,7 +107,7 @@ end
 
 -- ---------- actions ----------
 local function copyHex(hex)
-  noctalia.copyToClipboard(hex, "text/plain")
+  noctalia.copyToClipboard(hex, "text/plain;charset=utf-8")
   noctalia.notify("Palettes", `Copied {hex}`)
 end
 
