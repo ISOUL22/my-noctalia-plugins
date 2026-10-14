@@ -17,6 +17,16 @@ local editMode = false
 
 local render -- declared early so the functions below can call it
 
+-- ---------- translations ----------
+-- t("status.color_added", { name = "Red" }) -> looks up the string, then fills {name}
+local function t(key, vars)
+  local s = noctalia.tr(key)
+  if vars then
+    s = s:gsub("{(%w+)}", function(k) return tostring(vars[k] or "") end)
+  end
+  return s
+end
+
 -- ---------- combined list helpers ----------
 local function count() return #palettes + #builtin end
 local function isBuiltin(i) return i > #palettes end
@@ -50,18 +60,18 @@ end
 local function save()
   local text, encodeErr = noctalia.json.encode(palettes)
   if not text then
-    setStatus(`Encode failed: {encodeErr}`, true)
+    setStatus(t("status.encode_failed", { err = encodeErr }), true)
     return
   end
   local ok, err = noctalia.writeFile(path(), text)
-  if not ok then setStatus(`Save failed: {err}`, true) end
+  if not ok then setStatus(t("status.save_failed", { err = err }), true) end
 end
 
 local function savePrefs()
   local text = noctalia.json.encode({ defaultPalette = defaultName })
   if not text then return end
   local ok, err = noctalia.writeFile(prefsPath(), text)
-  if not ok then setStatus(`Couldn't save default: {err}`, true) end
+  if not ok then setStatus(t("status.default_save_failed", { err = err }), true) end
 end
 
 -- returns the decoded table, or nil if the file is missing or invalid
@@ -94,7 +104,7 @@ end
 local function load()
   palettes = readJson(path()) or {}          -- fresh install: no saved file -> empty
   builtin = readJson(builtinPath()) or {}
-  if #builtin == 0 then setStatus("Couldn't read builtin.json", true) end
+  if #builtin == 0 then setStatus(t("status.builtin_missing"), true) end
   local prefs = readJson(prefsPath())
   defaultName = (prefs and prefs.defaultPalette) or ""
   current = indexByName(defaultName) or 1    -- falls back to the first palette
@@ -108,7 +118,7 @@ end
 -- ---------- actions ----------
 local function copyHex(hex)
   noctalia.copyToClipboard(hex, "text/plain;charset=utf-8")
-  noctalia.notify("Palettes", `Copied {hex}`)
+  noctalia.notify(t("notify.title"), t("notify.copied", { hex = hex }))
 end
 
 local function removeColor(i)
@@ -118,15 +128,15 @@ end
 
 local function addColor()
   if isBuiltin(current) then
-    setStatus("Built-in palettes are read-only. Duplicate or create one first", true)
+    setStatus(t("status.builtin_readonly_add"), true)
     render(); return
   end
   if newName == "" then
-    setStatus("Give the color a name", true)
+    setStatus(t("status.color_name_required"), true)
     render(); return
   end
   table.insert(palettes[current].colors, { name = newName, hex = pickedHex })
-  setStatus(`Added {newName}`)
+  setStatus(t("status.color_added", { name = newName }))
   newName = ""
   nameRev += 1
   save(); render()
@@ -139,11 +149,13 @@ end
 
 local function renameColor(c, value)
   if value == "" then
-    setStatus("A color needs a name", true)
+    setStatus(t("status.color_rename_required"), true)
     render(); return
   end
+  if value == c.name then return end   -- nothing changed
+  local old = c.name
   c.name = value
-  setStatus(`Renamed to {value}`)
+  setStatus(t("status.color_renamed", { old = old, name = value }))
   save(); render()
 end
 
@@ -156,23 +168,23 @@ local function recolor(c)
     render()
   end)
   if not accepted then
-    setStatus("A picker is already open", true)
+    setStatus(t("status.picker_open"), true)
     render()
   end
 end
 
 local function addPalette()
   if newPalette == "" then
-    setStatus("Give the palette a name", true)
+    setStatus(t("status.palette_name_required"), true)
     render(); return
   end
   if indexByName(newPalette) then
-    setStatus("A palette with that name already exists", true)
+    setStatus(t("status.palette_exists"), true)
     render(); return
   end
   table.insert(palettes, { name = newPalette, colors = {} })
   current = #palettes
-  setStatus(`Created {newPalette}`)
+  setStatus(t("status.palette_created", { name = newPalette }))
   newPalette = ""
   palRev += 1
   save(); render()
@@ -185,21 +197,21 @@ end
 
 local function renamePalette(value)
   if value == "" then
-    setStatus("A palette needs a name", true)
-    render(); return
-  end
-  local taken = indexByName(value)
-  if taken and taken ~= current then
-    setStatus("A palette with that name already exists", true)
+    setStatus(t("status.palette_rename_required"), true)
     render(); return
   end
   local old = palettes[current].name
+  if value == old then return end      -- nothing changed
+  if indexByName(value) then           -- any match is another palette now
+    setStatus(t("status.palette_exists"), true)
+    render(); return
+  end
   palettes[current].name = value
   if defaultName == old then
     defaultName = value
     savePrefs()
   end
-  setStatus(`Renamed palette to {value}`)
+  setStatus(t("status.palette_renamed", { old = old, name = value }))
   save(); render()
 end
 
@@ -207,19 +219,19 @@ end
 local function duplicatePalette()
   local src = palAt(current)
   if not src then return end
-  local copy = { name = uniqueName(src.name .. " copy"), colors = {} }
+  local copy = { name = uniqueName(t("palette.copy_name", { name = src.name })), colors = {} }
   for _, c in ipairs(src.colors) do
     table.insert(copy.colors, { name = c.name, hex = c.hex })
   end
   table.insert(palettes, copy)
   current = #palettes
-  setStatus(`Duplicated into {copy.name}`)
+  setStatus(t("status.palette_duplicated", { name = copy.name }))
   save(); render()
 end
 
 local function deletePalette()
   if isBuiltin(current) then
-    setStatus("Built-in palettes can't be deleted", true)
+    setStatus(t("status.builtin_no_delete"), true)
     render(); return
   end
   table.remove(palettes, current)
@@ -236,10 +248,10 @@ local function toggleDefault()
   if not pal then return end
   if defaultName == pal.name then
     defaultName = ""
-    setStatus("Default palette cleared")
+    setStatus(t("status.default_cleared"))
   else
     defaultName = pal.name
-    setStatus(`{pal.name} will open by default`)
+    setStatus(t("status.default_set", { name = pal.name }))
   end
   savePrefs(); render()
 end
@@ -250,7 +262,7 @@ local function pickColor()
     render()
   end)
   if not accepted then
-    setStatus("A picker is already open", true)
+    setStatus(t("status.picker_open"), true)
     render()
   end
 end
@@ -273,10 +285,10 @@ local function editCell(i, c)
     swatch(c.hex, 32),
     ui.input({ key = `cn_{current}_{i}_{c.name}`, value = c.name, controlSize = "sm", flexGrow = 1,
       onSubmit = function(v) renameColor(c, v) end }),
-    ui.button({ key = `recolor_{i}`, glyph = "palette", width = 32, height = 32, tooltip = "Change color",
+    ui.button({ key = `recolor_{i}`, glyph = "palette", width = 32, height = 32, tooltip = t("ui.change_color"),
       onClick = function() recolor(c) end }),
     ui.button({ key = `del_{i}`, glyph = "trash", variant = "destructive", width = 32, height = 32,
-      tooltip = "Delete color", onClick = function() removeColor(i) end }),
+      tooltip = t("ui.delete_color"), onClick = function() removeColor(i) end }),
   })
 end
 
@@ -289,7 +301,7 @@ render = function()
   local names = {}
   for i = 1, count() do
     local p = palAt(i)
-    names[i] = isBuiltin(i) and (p.name .. " (built-in)") or p.name
+    names[i] = isBuiltin(i) and t("palette.builtin_name", { name = p.name }) or p.name
   end
 
   local pal = palAt(current)
@@ -308,38 +320,38 @@ render = function()
 
   local palettePart = {
     ui.row({ gap = 8, align = "center" }, {
-      ui.select({ options = names, selectedIndex = current - 1, placeholder = "No palettes yet",
+      ui.select({ options = names, selectedIndex = current - 1, placeholder = t("ui.no_palettes"),
         flexGrow = 1,
         onChange = function(index) current = (tonumber(index) or 0) + 1; render() end }),
       ui.button({ key = "pal_default", glyph = "star", enabled = pal ~= nil,
         variant = (pal ~= nil and defaultName == pal.name) and "primary" or "default",
-        controlSize = "md", tooltip = "Open this palette by default", onClick = toggleDefault }),
+        controlSize = "md", tooltip = t("ui.set_default"), onClick = toggleDefault }),
     }),
     ui.row({ gap = 8 }, {
-      ui.input({ key = `pname_{palRev}`, placeholder = "New palette name", flexGrow = 1,
+      ui.input({ key = `pname_{palRev}`, placeholder = t("ui.new_palette"), flexGrow = 1,
         onChange = function(v) newPalette = v end, onSubmit = onPaletteSubmit }),
-      ui.button({ key = "pal_create", text = "Create", onClick = addPalette }),
-      ui.button({ key = "pal_dup", glyph = "copy", tooltip = "Duplicate palette",
+      ui.button({ key = "pal_create", text = t("ui.create"), onClick = addPalette }),
+      ui.button({ key = "pal_dup", glyph = "copy", tooltip = t("ui.duplicate"),
         enabled = pal ~= nil, onClick = duplicatePalette }),
-      ui.button({ key = "pal_del", text = "Delete", glyph = "trash", variant = "destructive",
+      ui.button({ key = "pal_del", text = t("ui.delete"), glyph = "trash", variant = "destructive",
         enabled = not readOnly, onClick = deletePalette }),
     }),
   }
   if editing then
     table.insert(palettePart, ui.row({ gap = 8, align = "center" }, {
-      ui.label({ text = "Rename (Enter)", color = "on_surface_variant" }),
+      ui.label({ text = t("ui.rename"), color = "on_surface_variant" }),
       ui.input({ key = `prn_{current}_{palettes[current].name}`, value = palettes[current].name,
         controlSize = "sm", flexGrow = 1, onSubmit = renamePalette }),
     }))
   elseif editMode and readOnly and pal then
     table.insert(palettePart, ui.label({
-      text = "Built-in palettes are read-only. Duplicate to edit.", fontSize = 12, color = "on_surface_variant" }))
+      text = t("ui.builtin_hint"), fontSize = 12, color = "on_surface_variant" }))
   end
 
   panel.render(ui.column({ flexGrow = 1, gap = 12 }, {
     ui.row({ align = "center", gap = 8 }, {
-      ui.label({ text = "Palettes", fontSize = 16, fontWeight = "bold", flexGrow = 1 }),
-      ui.label({ text = "Edit", color = "on_surface_variant" }),
+      ui.label({ text = t("ui.title"), fontSize = 16, fontWeight = "bold", flexGrow = 1 }),
+      ui.label({ text = t("ui.edit"), color = "on_surface_variant" }),
       ui.toggle({ checked = editMode, onChange = function(v) setEditMode(v == "true"); render() end }),
       ui.button({ glyph = "close", onClick = function() panel.close() end }),
     }),
@@ -350,12 +362,12 @@ render = function()
     ui.label({ text = status, color = statusIsError and "error" or "primary" }),
 
     ui.row({ gap = 8, align = "center" }, {
-      ui.input({ key = `cname_{nameRev}`, placeholder = "New color name", flexGrow = 1, focus = nameRev > 0,
+      ui.input({ key = `cname_{nameRev}`, placeholder = t("ui.new_color"), flexGrow = 1, focus = nameRev > 0,
         enabled = not readOnly,
         onChange = function(v) newName = v end, onSubmit = onNameSubmit }),
       swatch(pickedHex, 38),
-      ui.button({ key = "pick", text = "Pick", enabled = not readOnly, onClick = pickColor }),
-      ui.button({ key = "add", text = "Add", variant = "primary", enabled = not readOnly, onClick = addColor }),
+      ui.button({ key = "pick", text = t("ui.pick"), enabled = not readOnly, onClick = pickColor }),
+      ui.button({ key = "add", text = t("ui.add"), variant = "primary", enabled = not readOnly, onClick = addColor }),
     }),
   }))
 end
