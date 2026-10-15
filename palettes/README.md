@@ -5,12 +5,13 @@ Palettes is a panel plugin designed to help you work with colors across multiple
 Create and store your own palettes locally, or reference builtin community palettes.
 
 Current Builtin Palettes:
-- Catppuccin
-- Dracula
-- Eldrictch
-- Gruvbox
-- Nord
-- Rosé Pine 
+- Catppuccin (Latte, Frappé, Macchiato, Mocha)
+- Dracula (Dracula, Alucard)
+- Eldrictch (Abyss, Cthulhu, Dusk)
+- Gruvbox (Dark, Light)
+- Kanagawa (Wave, Lotus and Dragon are planned)
+- Nord (All colors combined)
+- Rosé Pine (Default, Moon, Dawn)
 
 ## Plugin
 
@@ -44,3 +45,12 @@ noctalia msg panel-toggle soul/palettes:panel
 Common Errors:
 
 - `Couldn't read your palettes. The old file was kept as "palettes.json.bak"` If you see this message, your old file is saved as `palettes.json.bak`; fix it manually in the plugin data folder `~/.local/state/noctalia/plugins/data/soul/palettes` and restart
+
+Attribution:
+- [Catppuccin](https://catppuccin.com/)
+- [Dracula](https://draculatheme.com/)
+- [Eldrictch](https://github.com/eldritch-theme/eldritch)
+- [Gruvbox](https://gruvbox.org/)
+- [Kanagawa](https://github.com/rebelot/kanagawa.nvim)
+- [Nord](https://www.nordtheme.com/)
+- [Rosé Pine](https://rosepinetheme.com/)
