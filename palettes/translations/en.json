@@ -54,6 +54,7 @@
     "palette_rename_required": "A palette needs a name",
     "palette_renamed": "Renamed palette \"{old}\" to \"{name}\"",
     "palette_duplicated": "Duplicated into \"{name}\"",
+    "palettes_corrupt": "Couldn't read your palettes. The old file was kept as \"palettes.json.bak\"",
     "builtin_no_delete": "Built-in palettes can't be deleted",
     "default_cleared": "Default palette cleared",
     "default_set": "\"{name}\" will open by default"

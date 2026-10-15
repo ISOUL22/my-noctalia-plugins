@@ -22,9 +22,9 @@ local render -- declared early so the functions below can call it
 -- ---------- translations ----------
 -- t("status.color_added", { name = "Red" }) -> looks up the string, then fills {name}
 local function t(key, vars)
-  local s = noctalia.tr(key)
+  local s = noctalia.tr(key) or key
   if vars then
-    s = s:gsub("{(%w+)}", function(k) return tostring(vars[k] or "") end)
+    s = s:gsub("{([%w_]+)}", function(k) return tostring(vars[k] or "") end)
   end
   return s
 end
@@ -38,7 +38,8 @@ local function palAt(i) return palettes[i] or builtin[i - #palettes] end
 local function readSettings()
   local n = tonumber(noctalia.getConfig("columns")) or 2
   columns = math.max(1, math.min(3, math.floor(n)))
-  showBuiltin = noctalia.getConfig("show_builtin") ~= false   -- nil (unset) counts as true
+  local v = noctalia.getConfig("show_builtin")
+  showBuiltin = not (v == false or v == "false")   -- unset counts as true
 end
 
 local function path()
@@ -86,6 +87,24 @@ local function readJson(p)
   return data
 end
 
+-- keeps only well-formed palettes and colors; returns {} for nil or junk
+local function cleanPalettes(data)
+  local out = {}
+  for _, p in ipairs(data or {}) do
+    if type(p) == "table" and type(p.name) == "string" and type(p.colors) == "table" then
+      local colors = {}
+      for _, c in ipairs(p.colors) do
+        if type(c) == "table" and type(c.name) == "string" and type(c.hex) == "string"
+            and c.hex:match("^#%x%x%x%x%x%x$") then
+          table.insert(colors, c)
+        end
+      end
+      table.insert(out, { name = p.name, colors = colors })
+    end
+  end
+  return out
+end
+
 -- position of the first palette with this name in the combined list, or nil
 local function indexByName(name)
   for i = 1, count() do
@@ -116,8 +135,14 @@ local function uniqueName(base)
 end
 
 local function load()
-  palettes = readJson(path()) or {}          -- fresh install: no saved file -> empty
-  builtinAll = readJson(builtinPath()) or {}
+  local raw = noctalia.readFile(path())
+  local saved = readJson(path())
+  if raw and not saved then
+    noctalia.writeFile(path() .. ".bak", raw)   -- keep the unreadable file before a save replaces it
+    setStatus(t("status.palettes_corrupt"), true)
+  end
+  palettes = cleanPalettes(saved)
+  builtinAll = cleanPalettes(readJson(builtinPath()))
   builtin = showBuiltin and builtinAll or {}
   if #builtinAll == 0 then setStatus(t("status.builtin_missing"), true) end
   local prefs = readJson(prefsPath())
@@ -217,7 +242,7 @@ local function renamePalette(value)
   end
   local old = palettes[current].name
   if value == old then return end      -- nothing changed
-  if nameTaken(value) then           -- any match is another palette now
+  if nameTaken(value) then             -- any match is another palette now
     setStatus(t("status.palette_exists"), true)
     render(); return
   end
@@ -250,7 +275,7 @@ local function deletePalette()
     render(); return
   end
   table.remove(palettes, current)
-  if defaultName ~= "" and not indexByName(defaultName) then
+  if defaultName ~= "" and not nameTaken(defaultName) then
     defaultName = ""
     savePrefs()
   end
