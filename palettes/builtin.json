@@ -83,10 +83,15 @@
     { "name": "Bg4", "hex": "#7c6f64" }, { "name": "Fg0", "hex": "#fbf1c7" },
     { "name": "Fg1", "hex": "#ebdbb2" }, { "name": "Fg2", "hex": "#d5c4a1" },
     { "name": "Fg3", "hex": "#bdae93" }, { "name": "Fg4", "hex": "#a89984" },
-    { "name": "Gray", "hex": "#928374" }, { "name": "Red", "hex": "#fb4934" },
-    { "name": "Green", "hex": "#b8bb26" }, { "name": "Yellow", "hex": "#fabd2f" },
-    { "name": "Blue", "hex": "#83a598" }, { "name": "Purple", "hex": "#d3869b" },
-    { "name": "Aqua", "hex": "#8ec07c" }, { "name": "Orange", "hex": "#fe8019" }
+    { "name": "Gray", "hex": "#928374" },
+    { "name": "Bright Red", "hex": "#fb4934" }, { "name": "Bright Green", "hex": "#b8bb26" },
+    { "name": "Bright Yellow", "hex": "#fabd2f" }, { "name": "Bright Blue", "hex": "#83a598" },
+    { "name": "Bright Purple", "hex": "#d3869b" }, { "name": "Bright Aqua", "hex": "#8ec07c" },
+    { "name": "Bright Orange", "hex": "#fe8019" },
+    { "name": "Neutral Red", "hex": "#cc241d" }, { "name": "Neutral Green", "hex": "#98971a" },
+    { "name": "Neutral Yellow", "hex": "#d79921" }, { "name": "Neutral Blue", "hex": "#458588" },
+    { "name": "Neutral Purple", "hex": "#b16286" }, { "name": "Neutral Aqua", "hex": "#689d6a" },
+    { "name": "Neutral Orange", "hex": "#d65d0e" }
   ] },
   { "name": "Gruvbox Light", "colors": [
     { "name": "Bg0 Hard", "hex": "#f9f5d7" }, { "name": "Bg0", "hex": "#fbf1c7" },
@@ -95,10 +100,15 @@
     { "name": "Bg4", "hex": "#a89984" }, { "name": "Fg0", "hex": "#282828" },
     { "name": "Fg1", "hex": "#3c3836" }, { "name": "Fg2", "hex": "#504945" },
     { "name": "Fg3", "hex": "#665c54" }, { "name": "Fg4", "hex": "#7c6f64" },
-    { "name": "Gray", "hex": "#928374" }, { "name": "Red", "hex": "#9d0006" },
-    { "name": "Green", "hex": "#79740e" }, { "name": "Yellow", "hex": "#b57614" },
-    { "name": "Blue", "hex": "#076678" }, { "name": "Purple", "hex": "#8f3f71" },
-    { "name": "Aqua", "hex": "#427b58" }, { "name": "Orange", "hex": "#af3a03" }
+    { "name": "Gray", "hex": "#928374" },
+    { "name": "Faded Red", "hex": "#9d0006" }, { "name": "Faded Green", "hex": "#79740e" },
+    { "name": "Faded Yellow", "hex": "#b57614" }, { "name": "Faded Blue", "hex": "#076678" },
+    { "name": "Faded Purple", "hex": "#8f3f71" }, { "name": "Faded Aqua", "hex": "#427b58" },
+    { "name": "Faded Orange", "hex": "#af3a03" },
+    { "name": "Neutral Red", "hex": "#cc241d" }, { "name": "Neutral Green", "hex": "#98971a" },
+    { "name": "Neutral Yellow", "hex": "#d79921" }, { "name": "Neutral Blue", "hex": "#458588" },
+    { "name": "Neutral Purple", "hex": "#b16286" }, { "name": "Neutral Aqua", "hex": "#689d6a" },
+    { "name": "Neutral Orange", "hex": "#d65d0e" }
   ] },
   { "name": "Kanagawa Wave", "colors": [
     { "name": "Fuji White", "hex": "#dcd7ba" }, { "name": "Old White", "hex": "#c8c093" },
@@ -137,9 +147,7 @@
     { "name": "Subtle", "hex": "#908caa" }, { "name": "Text", "hex": "#e0def4" },
     { "name": "Love", "hex": "#eb6f92" }, { "name": "Gold", "hex": "#f6c177" },
     { "name": "Rose", "hex": "#ebbcba" }, { "name": "Pine", "hex": "#31748f" },
-    { "name": "Foam", "hex": "#9ccfd8" }, { "name": "Iris", "hex": "#c4a7e7" },
-    { "name": "Highlight Low", "hex": "#21202e" }, { "name": "Highlight Med", "hex": "#403d52" },
-    { "name": "Highlight High", "hex": "#524f67" }
+    { "name": "Foam", "hex": "#9ccfd8" }, { "name": "Iris", "hex": "#c4a7e7" }
   ] },
   { "name": "Rosé Pine Moon", "colors": [
     { "name": "Base", "hex": "#232136" }, { "name": "Surface", "hex": "#2a273f" },
@@ -147,18 +155,14 @@
     { "name": "Subtle", "hex": "#908caa" }, { "name": "Text", "hex": "#e0def4" },
     { "name": "Love", "hex": "#eb6f92" }, { "name": "Gold", "hex": "#f6c177" },
     { "name": "Rose", "hex": "#ea9a97" }, { "name": "Pine", "hex": "#3e8fb0" },
-    { "name": "Foam", "hex": "#9ccfd8" }, { "name": "Iris", "hex": "#c4a7e7" },
-    { "name": "Highlight Low", "hex": "#2a283e" }, { "name": "Highlight Med", "hex": "#44415a" },
-    { "name": "Highlight High", "hex": "#56526e" }
+    { "name": "Foam", "hex": "#9ccfd8" }, { "name": "Iris", "hex": "#c4a7e7" }
   ] },
   { "name": "Rosé Pine Dawn", "colors": [
     { "name": "Base", "hex": "#faf4ed" }, { "name": "Surface", "hex": "#fffaf3" },
     { "name": "Overlay", "hex": "#f2e9e1" }, { "name": "Muted", "hex": "#9893a5" },
-    { "name": "Subtle", "hex": "#797593" }, { "name": "Text", "hex": "#575279" },
+    { "name": "Subtle", "hex": "#797593" }, { "name": "Text", "hex": "#464261" },
     { "name": "Love", "hex": "#b4637a" }, { "name": "Gold", "hex": "#ea9d34" },
     { "name": "Rose", "hex": "#d7827e" }, { "name": "Pine", "hex": "#286983" },
-    { "name": "Foam", "hex": "#56949f" }, { "name": "Iris", "hex": "#907aa9" },
-    { "name": "Highlight Low", "hex": "#f4ede8" }, { "name": "Highlight Med", "hex": "#dfdad9" },
-    { "name": "Highlight High", "hex": "#cecacd" }
+    { "name": "Foam", "hex": "#56949f" }, { "name": "Iris", "hex": "#907aa9" }
   ] }
 ]
