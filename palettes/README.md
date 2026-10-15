@@ -40,11 +40,11 @@ noctalia msg panel-toggle soul/palettes:panel
 
 - This plugin was made with help from AI. And manually tested with every change.
 - If you would like a palette to be included in the plugin open a PR for `builtin.json`
-- Local palettes are written to `~/.local/state/noctalia/plugins/data/soul/palettes/palettes.json`
+- Local palettes are written to the plugin data directory, Default: `~/.local/state/noctalia/plugins/`
 
 Common Errors:
 
-- `Couldn't read your palettes. The old file was kept as "palettes.json.bak"` If you see this message, your old file is saved as `palettes.json.bak`; fix it manually in the plugin data folder `~/.local/state/noctalia/plugins/data/soul/palettes` and restart
+- `Couldn't read your palettes. The old file was kept as "palettes.json.bak"` If you see this message, your old file is saved as `palettes.json.bak`; fix it manually in the plugin data folder `~/.local/state/noctalia/plugins/data/soul/palettes` and reload the plugin through your settings window.
 
 Attribution:
 - [Catppuccin](https://catppuccin.com/)
