@@ -29,3 +29,10 @@ position = "center"
   default = 3
   min = 1
   max = 3
+
+  [[panel.setting]]
+  key = "show_builtin"
+  type = "bool"
+  label_key = "settings.show_builtin.label"
+  description_key = "settings.show_builtin.description"
+  default = true

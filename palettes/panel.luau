@@ -7,6 +7,8 @@ local EDIT_GRACE = 60   -- seconds; reopen within this window and edit mode stay
 local columns = 2
 local palettes = {}     -- the user's palettes: editable, saved to the data dir
 local builtin = {}      -- shipped in builtin.json: read-only, never saved
+local builtinAll = {}   -- every shipped palette, loaded even when hidden (used for name checks)
+local showBuiltin = true
 local current = 1       -- index into the combined list: user palettes first, then built-in
 local defaultName = ""  -- "" means no default chosen
 local newPalette, newName = "", ""
@@ -33,9 +35,10 @@ local function isBuiltin(i) return i > #palettes end
 local function palAt(i) return palettes[i] or builtin[i - #palettes] end
 
 -- ---------- settings / storage ----------
-local function readColumns()
+local function readSettings()
   local n = tonumber(noctalia.getConfig("columns")) or 2
   columns = math.max(1, math.min(3, math.floor(n)))
+  showBuiltin = noctalia.getConfig("show_builtin") ~= false   -- nil (unset) counts as true
 end
 
 local function path()
@@ -91,10 +94,21 @@ local function indexByName(name)
   return nil
 end
 
+-- true if any palette, visible or not, already has this name
+local function nameTaken(name)
+  for _, p in ipairs(palettes) do
+    if p.name == name then return true end
+  end
+  for _, p in ipairs(builtinAll) do
+    if p.name == name then return true end
+  end
+  return false
+end
+
 -- "base", or "base 2", "base 3", ... until the name is free
 local function uniqueName(base)
   local name, n = base, 1
-  while indexByName(name) do
+  while nameTaken(name) do
     n += 1
     name = `{base} {n}`
   end
@@ -103,8 +117,9 @@ end
 
 local function load()
   palettes = readJson(path()) or {}          -- fresh install: no saved file -> empty
-  builtin = readJson(builtinPath()) or {}
-  if #builtin == 0 then setStatus(t("status.builtin_missing"), true) end
+  builtinAll = readJson(builtinPath()) or {}
+  builtin = showBuiltin and builtinAll or {}
+  if #builtinAll == 0 then setStatus(t("status.builtin_missing"), true) end
   local prefs = readJson(prefsPath())
   defaultName = (prefs and prefs.defaultPalette) or ""
   current = indexByName(defaultName) or 1    -- falls back to the first palette
@@ -178,7 +193,7 @@ local function addPalette()
     setStatus(t("status.palette_name_required"), true)
     render(); return
   end
-  if indexByName(newPalette) then
+  if nameTaken(newPalette) then
     setStatus(t("status.palette_exists"), true)
     render(); return
   end
@@ -202,7 +217,7 @@ local function renamePalette(value)
   end
   local old = palettes[current].name
   if value == old then return end      -- nothing changed
-  if indexByName(value) then           -- any match is another palette now
+  if nameTaken(value) then           -- any match is another palette now
     setStatus(t("status.palette_exists"), true)
     render(); return
   end
@@ -374,7 +389,7 @@ end
 
 function onOpen(_context)
   setStatus("")   -- clear any message left from the last open
-  readColumns()
+  readSettings()
   load()
   local wasEditing = noctalia.state.get("editMode") == true
   local seen = tonumber(noctalia.state.get("editSeen")) or 0

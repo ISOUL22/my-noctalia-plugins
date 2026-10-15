@@ -3,6 +3,10 @@
     "columns": {
       "description": "How many color columns the palette grid shows.",
       "label": "Columns"
+    },
+    "show_builtin": {
+      "description": "Include the bundled palettes (Catppuccin, Nord, and others) in the palette list.",
+      "label": "Show built-in palettes"
     }
   },
   "widget": {
